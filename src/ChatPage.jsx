@@ -42,6 +42,15 @@ function ChatPage({ user }) {
     e.target.reset();
   };
 
+  //Perlu pake try catch karena behavior serverTimestampnya gimana gimana gitu
+  const getTime = (time) => {
+    try {
+      return moment(time.toDate()).format("HH:mm");
+    } catch {
+      return moment().format("HH:mm");
+    }
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <h3>Kamu adalah '{user}'</h3>
@@ -57,9 +66,7 @@ function ChatPage({ user }) {
             <div style={{ padding: "8px", border: "1px solid black" }}>
               {message.text}
             </div>
-            <div style={{ margin: "4px 0" }}>
-              {moment(message.time.toDate()).format("HH:mm")}
-            </div>
+            <div style={{ margin: "4px 0" }}>{getTime(message.time)}</div>
           </div>
         ))}
       </div>
